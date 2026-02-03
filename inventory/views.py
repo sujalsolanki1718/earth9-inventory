@@ -10,7 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import F, Sum
 from .models import Product
 
-@login_required
+
 
 def logout_view(request):
     logout(request)
@@ -96,3 +96,25 @@ def export_csv(request):
         writer.writerow([p.name, p.code, p.sell_price, p.purchase_price, p.qty])
 
     return response
+
+
+@login_required
+def edit_product(request, id):
+    product = Product.objects.get(id=id, user=request.user)
+
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'edit_product.html', {'form': form})
+
+
+@login_required
+def delete_product(request, id):
+    product = Product.objects.get(id=id, user=request.user)
+    product.delete()
+    return redirect('dashboard')

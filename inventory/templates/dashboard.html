@@ -3,37 +3,57 @@
 {% block content %}
 
 <h1>Inventory Dashboard</h1>
+
 <div class="stats">
+  <div class="stat-box">
+    <h3>Total Products</h3>
+    <h2>{{ total_products }}</h2>
+  </div>
 
   <div class="stat-box">
-   <h3>Total Products</h3>
-  <h2>{{ total_products }}</h2>
+    <h3>Total Stock Value</h3>
+    <h2>₹ {{ stock_value }}</h2>
   </div>
-  <div class="stat-box">
-      <h3>Total Stock Value</h3>
-  <h2>₹ {{ stock_value }}</h2>
-  
-  </div>
-  
-<div class="stat-box">
-  <h3>Low Stock Items</h3>
-  <h2>{{ low_stock }}</h2>
-</div>
-</div>
 
+  <div class="stat-box">
+    <h3>Low Stock Items</h3>
+    <h2>{{ low_stock }}</h2>
+  </div>
+</div>
 
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>Add Product</button>
 </form>
+
 <br>
+
 <table>
-<tr><th>Name</th><th>Qty</th></tr>
+<tr>
+    <th>Name</th>
+    <th>Qty</th>
+    <th>Actions</th>
+</tr>
+
 {% for p in products %}
-<tr><td>{{ p.name }}</td><td>{{ p.qty }}</td></tr>
+<tr>
+    <td>{{ p.name }}</td>
+    <td>{{ p.qty }}</td>
+    <td>
+    <a href="{% url 'edit_product' p.id %}" class="edit-btn">✏ Edit</a>
+    <a href="{% url 'delete_product' p.id %}" class="delete-btn" onclick="return confirm('Delete this product?')">🗑 Delete</a>
+</td>
+
+    <!-- <td>
+        <a href="{% url 'edit_product' p.id %}">✏ Edit</a> |
+        <a href="{% url 'delete_product' p.id %}" onclick="return confirm('Delete this product?')">🗑 Delete</a>
+    </td> -->
+</tr>
 {% endfor %}
 </table>
+
+<br>
 
 <canvas id="stockChart"></canvas>
 {{ product_data|json_script:"product-data" }}
