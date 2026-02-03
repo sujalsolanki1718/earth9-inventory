@@ -32,10 +32,18 @@ It allows users to manage products, stock levels, and billing efficiently via a 
 
 ---
 ## Screenshots
+
+## Login page
 ![login](screenshots/elogin.png)
+
+## Dashboard page
 ![Dashboard](screenshots/dashboard1.png)
 ![Dashboard](screenshots/chart.png)
+
+## Bill page
 ![Billing](screenshots/ebill.png)
+
+## Admin panel of Django
 ![admin panel](screenshots/eadmin1.png)
 ![admin panel](screenshots/eadmin2.png)
 
