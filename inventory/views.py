@@ -83,6 +83,26 @@ def billing(request):
 
 
 @login_required
+def edit_bill(request, bill_id):
+    bill = Bill.objects.get(id=bill_id, user=request.user)
+    if request.method == "POST":
+        form = BillForm(request.POST, instance=bill)
+        if form.is_valid():
+            form.save()
+            return redirect('billing')
+    else:
+        form = BillForm(instance=bill)
+    return render(request, 'edit_bill.html', {'form': form})
+
+
+@login_required
+def delete_bill(request, bill_id):
+    bill = Bill.objects.get(id=bill_id, user=request.user)
+    bill.delete()
+    return redirect('billing')
+
+
+@login_required
 def export_csv(request):
     products = Product.objects.filter(user=request.user)
 

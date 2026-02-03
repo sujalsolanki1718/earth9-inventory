@@ -9,9 +9,27 @@
 </form>
 <br>
 <table>
+<tr>
+    <th>Customer</th>
+    <th>Total</th>
+    <th>Actions</th>
+</tr>
+{% for b in bills %}
+<tr>
+    <td>{{ b.customer_name }}</td>
+    <td>₹{{ b.total_amount }}</td>
+    <td>
+        <a style="text-decoration: none;" href="{% url 'edit_bill' b.id %}"> Edit</a> 
+        <a style="text-decoration: none;" href="{% url 'delete_bill' b.id %}" onclick="return confirm('Delete this bill?')">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<!-- <table>
 <tr><th>Customer</th><th>Total</th></tr>
 {% for b in bills %}
 <tr><td>{{ b.customer_name }}</td><td>₹{{ b.total_amount }}</td></tr>
 {% endfor %}
-</table>
+</table> -->
 {% endblock %}
