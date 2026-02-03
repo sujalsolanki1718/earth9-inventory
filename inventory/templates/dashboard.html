@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Inventory Dashboard</h1>
+<div class="stats">
+
+  <div class="stat-box">
+   <h3>Total Products</h3>
+  <h2>{{ total_products }}</h2>
+  </div>
+  <div class="stat-box">
+      <h3>Total Stock Value</h3>
+  <h2>₹ {{ stock_value }}</h2>
+  
+  </div>
+  
+<div class="stat-box">
+  <h3>Low Stock Items</h3>
+  <h2>{{ low_stock }}</h2>
+</div>
+</div>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Add Product</button>
+</form>
+<br>
+<table>
+<tr><th>Name</th><th>Qty</th></tr>
+{% for p in products %}
+<tr><td>{{ p.name }}</td><td>{{ p.qty }}</td></tr>
+{% endfor %}
+</table>
+
+<canvas id="stockChart"></canvas>
+{{ product_data|json_script:"product-data" }}
+
+<script>
+const products = JSON.parse(document.getElementById('product-data').textContent);
+new Chart(document.getElementById('stockChart'), {
+    type: 'bar',
+    data: {
+        labels: products.map(p => p.name),
+        datasets: [{
+            label: 'Stock',
+            data: products.map(p => p.qty)
+        }]
+    }
+});
+</script>
+
+{% endblock %}

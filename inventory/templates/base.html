@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+    <title>Earth9 SaaS</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>EARTH9</h2>
+    <a href="/">Dashboard</a>
+    <a href="/billing/">Billing</a>
+    <a href="/export/">Export CSV</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <div class="theme-toggle" onclick="toggleTheme()">dark</div>
+
+</div>
+
+<div class="main">
+    {% block content %}{% endblock %}
+</div>
+<script>
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
