@@ -31,6 +31,16 @@ It allows users to manage products, stock levels, and billing efficiently via a 
 - **Charts:** Chart.js  
 
 ---
+## Screenshots
+![login](screenshots/elogin.png)
+![Dashboard](screenshots/dashboard1.png)
+![Dashboard](screenshots/chart.png)
+![Billing](screenshots/ebill.png)
+![admin panel](screenshots/eadmin1.png)
+![admin panel](screenshots/eadmin2.png)
+
+
+
 
 ## Installation
 
